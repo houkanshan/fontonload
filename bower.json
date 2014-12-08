@@ -1,0 +1,23 @@
+{
+  "name": "fontonload",
+  "main": "fontonload.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/houkanshan/fontonload",
+  "authors": [
+    "houmai <houkanshan@gmail.com>"
+  ],
+  "description": "Croww browser detecting font loads, without using timer (setTimeout / setInterval).",
+  "keywords": [
+    "font",
+    "fontface"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
