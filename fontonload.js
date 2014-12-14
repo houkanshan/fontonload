@@ -79,14 +79,10 @@
     var scroller = this.scroller = createTestScroller(this.options.testChar)
     scroller.scrollLeft = scroller.scrollWidth - 1
     scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
-    if(scroller.scrollLeft === 0) {
-      success()
-    } else {
-      scroller.onscroll = function() {
-        if(scroller.scrollLeft === 0) {
-          success()
-        }
-      }
+
+    if(scroller.scrollLeft === 0) { return success() } // Firefox may use cache.
+    scroller.onscroll = function() {
+      if(scroller.scrollLeft === 0) {  return success() }
     }
   }
 
