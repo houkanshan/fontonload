@@ -6,7 +6,7 @@
       }
     , doc = win.document
     , ua = navigator.userAgent
-    , unsupportRe = /(IEMobile\/[0-9])|(BlackBerry*.+Version\/[0-6])|(Opera Mini)|(Firefox\/[0-3])/i
+    , unsupportRe = /(IEMobile\/[0-9])|(BlackBerry*.+Version\/[0-6])|(Opera Mini)|(Firefox\/[0-3]\.)/i
     , unsupport = unsupportRe.test(ua)
     , supportAutoScroll = !/msie [6-9]/i.test(ua)
     , supportFontsLoading = ('fonts' in doc)
