@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo for FontOnload</title>
+
+  <style>
+    @font-face {
+      font-family: 'arkpunctuation';
+      src: url("./fonts/arkpunctuation_v2.eot");
+      src: url("./fonts/arkpunctuation_v2.eot#iefix") format('embedded-opentype'),
+           url("./fonts/arkpunctuation_v2.woff") format('woff'),
+           url("./fonts/arkpunctuation_v2.ttf") format('truetype'),
+           url("./fonts/arkpunctuation_v2.svg#arkicons") format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      font-family: 'arial';
+    }
+    .font {
+      font-family: 'arkpunctuation', 'arial';
+    }
+  </style>
+</head>
+<style>
+
+</style>
+<body>
+  <span id="a">abc——“”&#xfffd;</span>
+  <span id="b">abc——“”&#xfffd;</span>
+  <pre id="log"></pre>
+
+  <script src="../fontonload.js"></script>
+  <script>
+    var a = document.getElementById('a')
+      , b = document.getElementById('b')
+      , log = document.getElementById('log')
+      , startTime = +new Date()
+
+    log.innerHTML += 'arial: '
+    log.innerHTML += a.offsetWidth
+    log.innerHTML += '\n'
+
+    FontOnload('arkpunctuation', {
+      eotFile: './fonts/arkpunctuation_v2.eot'
+    , success: function() {
+        b.className = 'font'
+        log.innerHTML += 'arkpunctuation: '
+        log.innerHTML += b.offsetWidth
+        log.innerHTML += '\n'
+        log.innerHTML += 'loading time:' + (+new Date() - startTime)
+        log.innerHTML += '\n'
+      }
+    , fail: function() {
+        log.innerHTML += 'fail\n'
+      }
+    })
+
+  </script>
+</body>
+</html>

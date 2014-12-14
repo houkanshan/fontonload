@@ -1,52 +1,110 @@
 ;(function(win) {
-
   var defaults = {
         timeout: 2000
-      , success: function() {}
-      , fail: function() {}
+      , eotFile: ''
+      , testChar: '\ufffd'
       }
     , doc = win.document
+    , ua = navigator.userAgent
+    , unsupportRe = /(IEMobile\/[0-9])|(BlackBerry*.+Version\/[0-6])|(Opera Mini)|(Firefox\/[0-3])/i
+    , unsupport = unsupportRe.test(ua)
+    , supportAutoScroll = !/msie [6-9]/i.test(ua)
+    , supportFontsLoading = ('fonts' in doc)
+    , ieFix = /msie [6-7]/i.test(ua)
+
+  var testStyle = [
+        'position:absolute'
+      , 'top:-1000px'
+      , 'height:1px', 'width:1px'
+      , 'overflow:hidden'
+      , 'font:12px/1 arial'
+      ].join(';')
+    , testFontFamily = '{f},arial'
+
+  function createTestScroller(testChar) {
+    var scroller = document.createElement('div');
+    scroller.style.cssText = testStyle
+    this.scroller = scroller
+
+    document.body.appendChild(scroller)
+    scroller.appendChild(document.createTextNode(testChar))
+    return scroller
+  }
 
   function FontOnload(options) {
     var opts = {}
     opts.timeout = options.timeout || defaults.timeout
-    opts.success = options.success || defaults.success
-    opts.fail = options.fail || defaults.fail
+    opts.eotFile = options.eotFile
+    opts.testChar = options.testChar || defaults.testChar
     this.options = opts
-
-    this.supportFontsLoading = ('fonts' in doc)
-    this.supportAutoScroll = !/ie [6-8]/i.test(navigate.userAgent)
-
   }
 
   var proto = FontOnload.prototype
-  proto.load = function() {
-    var self = this
-    if (supportFontsLoading) {
-      this.loadingDetectByBrowser(fontname)
-    } else if (supportAutoScroll){
-      this.loadingDetectByScroll(fontname)
-    } else {
-      this.loadingDetectByPreload(fontname)
+  proto.load = function(fontname, success, fail) {
+    if (unsupport) { return fail && fail() }
+
+    var args = [].slice.apply(arguments)
+      , self = this
+      , timer
+
+    args[1] = function() {
+      if (!timer) { return } // already ran
+      clearTimeout(timer)
+      timer = null
+      success && success()
+      self.scroller && document.body.removeChild(self.scroller)
+    }
+    args[2] = function() {
+      if (!timer) { return } // already ran
+      clearTimeout(timer)
+      timer = null
+      fail && fail()
+      self.scroller && document.body.removeChild(self.scroller)
     }
 
-    this.timer = setTimeout(function() {
-      self.options.error()
-    }, this.options.timeout)
+    timer = setTimeout(args[2], this.options.timeout)
+
+    if (supportFontsLoading) {
+      this.loadingDetectByBrowser.apply(this, args)
+    } else if (supportAutoScroll) {
+      this.loadingDetectByScroll.apply(this, args)
+    } else {
+      this.loadingDetectByPreload.apply(this, args)
+    }
   }
 
-  proto.loadingDetectByBrowser = function() {
+  proto.loadingDetectByBrowser = function(fontname, success, fail) {
+    document.fonts.load('1em ' + fontname).then(success, fail)
   }
 
-  proto.loadingDetectByScroll = function() {
+  proto.loadingDetectByScroll = function(fontname, success, fail) {
+    var scroller = createTestScroller(this.options.testChar)
+    scroller.scrollLeft = scroller.scrollWidth - 1
+    scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
+    if(scroller.scrollLeft === 0) {
+      success()
+    } else {
+      scroller.onscroll = function() {
+        if(scroller.scrollLeft === 0) {
+          success()
+        }
+      }
+    }
   }
 
-  proto.loadingDetectByPreload = function() {
+  proto.loadingDetectByPreload = function(fontname, success, fail) {
+    var loader = new Image()
+      , self = this
+    loader.src = this.options.eotFile + (ieFix ? '?#ie' : '')
+    loader.onabort = loader.onload = loader.onerror = function() {
+      var scroller = createTestScroller(self.options.testChar)
+      scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
+      scroller.scrollWidth === 1 ? success() : fail()
+    }
   }
 
-  return function(fontname, options) {
+  win.FontOnload = function(fontname, options) {
     var fontonload = new FontOnload(options)
-    fontonload.load(fontname)
+    fontonload.load(fontname , options.success, options.fail)
   }
-
 }(this))
