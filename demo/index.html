@@ -28,14 +28,16 @@
 
 </style>
 <body>
-  <span id="a">abc——“”&#xfffd;</span>
-  <span id="b">abc——“”&#xfffd;</span>
+  <p id="a">abc——“”&#xfffd; <sub>default font</sub>
+  <p id="b">abc——“”&#xfffd; <sub>test font loading</sub>
+  <p id="c">abc——“”&#xfffd; <sub>test if really failed</sub>
   <pre id="log"></pre>
 
   <script src="../fontonload.js"></script>
   <script>
     var a = document.getElementById('a')
       , b = document.getElementById('b')
+      , c = document.getElementById('c')
       , log = document.getElementById('log')
       , startTime = +new Date()
 
@@ -57,6 +59,10 @@
         log.innerHTML += 'fail\n'
       }
     })
+
+    setTimeout(function() {
+      c.className = 'font'
+    }, 2000)
 
   </script>
 </body>

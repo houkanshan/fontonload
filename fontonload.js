@@ -10,7 +10,6 @@
     , unsupport = unsupportRe.test(ua)
     , supportAutoScroll = !/msie [6-9]/i.test(ua)
     , supportFontsLoading = ('fonts' in doc)
-    , ieFix = /msie [6-7]/i.test(ua)
 
   var testStyle = [
         'position:absolute'
@@ -89,7 +88,7 @@
   proto.loadingDetectByPreload = function(fontname, success, fail) {
     var loader = new Image()
       , self = this
-    loader.src = this.options.eotFile + (ieFix ? '?#ie' : '')
+    loader.src = this.options.eotFile
     loader.onabort = loader.onload = loader.onerror = function() {
       self.scroller = createTestScroller(self.options.testChar)
       self.scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
