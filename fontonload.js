@@ -88,12 +88,13 @@
   proto.loadingDetectByPreload = function(fontname, success, fail) {
     var loader = new Image()
       , self = this
-    loader.src = this.options.eotFile
     loader.onabort = loader.onload = loader.onerror = function() {
       self.scroller = createTestScroller(self.options.testChar)
+      var scrollWidth = self.scroller.scrollWidth
       self.scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
-      self.scroller.scrollWidth === 1 ? success() : fail()
+      self.scroller.scrollWidth !== scrollWidth ? success() : fail()
     }
+    loader.src = this.options.eotFile
   }
 
   win.FontOnload = function(fontname, options) {
