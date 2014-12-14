@@ -24,8 +24,6 @@
   function createTestScroller(testChar) {
     var scroller = document.createElement('div');
     scroller.style.cssText = testStyle
-    this.scroller = scroller
-
     document.body.appendChild(scroller)
     scroller.appendChild(document.createTextNode(testChar))
     return scroller
@@ -78,7 +76,7 @@
   }
 
   proto.loadingDetectByScroll = function(fontname, success, fail) {
-    var scroller = createTestScroller(this.options.testChar)
+    var scroller = this.scroller = createTestScroller(this.options.testChar)
     scroller.scrollLeft = scroller.scrollWidth - 1
     scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
     if(scroller.scrollLeft === 0) {
@@ -97,9 +95,9 @@
       , self = this
     loader.src = this.options.eotFile + (ieFix ? '?#ie' : '')
     loader.onabort = loader.onload = loader.onerror = function() {
-      var scroller = createTestScroller(self.options.testChar)
-      scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
-      scroller.scrollWidth === 1 ? success() : fail()
+      self.scroller = createTestScroller(self.options.testChar)
+      self.scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
+      self.scroller.scrollWidth === 1 ? success() : fail()
     }
   }
 
