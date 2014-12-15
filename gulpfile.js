@@ -2,6 +2,7 @@ var gulp = require('gulp')
   , jshint = require('gulp-jshint')
   , uglify = require('gulp-uglify')
   , rename = require('gulp-rename')
+  , ghpages = require('gulp-gh-pages')
 
 gulp.task('jshint', function(){
   gulp.src(['**/*.js', '!node_modules/**'])
@@ -16,5 +17,10 @@ gulp.task('compress', function(){
     .pipe(gulp.dest('./'))
 })
 
+gulp.task('gh-pages', function () {
+  gulp.src(['**/*', '!node_modules/**'])
+    .pipe(ghpages());
+})
+
 gulp.task('test', ['jshint'])
-gulp.task('default', ['jshint', 'compress'])
+gulp.task('default', ['jshint', 'compress', 'gh-pages'])
