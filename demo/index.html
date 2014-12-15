@@ -4,7 +4,19 @@
   <meta charset="UTF-8">
   <title>Demo for FontOnload</title>
 
+  <script src="../fontonload.js"></script>
   <style>
+    @font-face {
+      font-family: 'DroidSerif';
+      src: url("./fonts/droidserif.eot");
+      src: url("./fonts/droidserif.eot#iefix") format('embedded-opentype'),
+           url("./fonts/droidserif.woff2") format('woff2'),
+           url("./fonts/droidserif.woff") format('woff'),
+           url("./fonts/droidserif.ttf") format('truetype'),
+           url("./fonts/droidserif.svg#droidserif") format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
     @font-face {
       font-family: 'arkpunctuation';
       src: url("./fonts/arkpunctuation_v2.eot");
@@ -12,15 +24,18 @@
            url("./fonts/arkpunctuation_v2.woff2") format('woff2'),
            url("./fonts/arkpunctuation_v2.woff") format('woff'),
            url("./fonts/arkpunctuation_v2.ttf") format('truetype'),
-           url("./fonts/arkpunctuation_v2.svg#arkicons") format('svg');
+           url("./fonts/arkpunctuation_v2.svg#arkpunctuation") format('svg');
       font-weight: normal;
       font-style: normal;
     }
     body {
       font-family: 'arial';
     }
-    .font {
+    .arkpunctuation {
       font-family: 'arkpunctuation', 'arial';
+    }
+    .droidserif {
+      font-family: 'DroidSerif', 'arial';
     }
   </style>
 </head>
@@ -28,30 +43,54 @@
 
 </style>
 <body>
-  <p id="a">abc——“”&#xfffd; <sub>default font</sub>
-  <p id="b">abc——“”&#xfffd; <sub>test font loading</sub>
-  <p id="c">abc——“”&#xfffd; <sub>test if really failed</sub>
+  <span id="a">abc——“”&#xfffd; <sub>default font</sub>
+  </span>
+  <br>
+  <span id="b">abc——“”&#xfffd; <sub>test font loading: arkpunctuation</sub>
+  </span>
+  <br>
+  <span id="c">abc——“”&#xfffd; <sub>test font loading: DroidSerif</sub>
+  </span>
+  <br>
+  <span id="d">abc——“”&#xfffd; <sub>test if really failed</sub>
+  </span>
+  <br>
   <pre id="log"></pre>
 
-  <script src="../fontonload.js"></script>
   <script>
     var a = document.getElementById('a')
       , b = document.getElementById('b')
       , c = document.getElementById('c')
+      , d = document.getElementById('d')
       , log = document.getElementById('log')
       , startTime = +new Date()
 
     log.innerHTML += 'arial: '
-    log.innerHTML += a.offsetWidth
+    log.innerHTML += a.offsetWidth + 'px'
     log.innerHTML += '\n'
 
     FontOnload('arkpunctuation', {
-      eotFile: './fonts/arkpunctuation_v2.eot'
+      eotFile: './fonts/arkpunctuation_v2a.eot'
     , success: function() {
-        b.className = 'font'
+        b.className = 'arkpunctuation'
         log.innerHTML += 'arkpunctuation: '
-        log.innerHTML += b.offsetWidth
+        log.innerHTML += b.offsetWidth + 'px'
+        log.innerHTML += ', '
+        log.innerHTML += 'loading time:' + (+new Date() - startTime)
         log.innerHTML += '\n'
+      }
+    , fail: function() {
+        log.innerHTML += 'fail\n'
+      }
+    })
+
+    FontOnload('DroidSerif', {
+      eotFile: './fonts/droidserif.eot'
+    , success: function() {
+        c.className = 'droidserif'
+        log.innerHTML += 'DroidSeif: '
+        log.innerHTML += c.offsetWidth + 'px'
+        log.innerHTML += ', '
         log.innerHTML += 'loading time:' + (+new Date() - startTime)
         log.innerHTML += '\n'
       }
@@ -61,7 +100,7 @@
     })
 
     setTimeout(function() {
-      c.className = 'font'
+      d.className = 'arkpunctuation'
     }, 2000)
 
   </script>
