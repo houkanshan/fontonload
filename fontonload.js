@@ -90,7 +90,7 @@
       , self = this
     loader.onabort = loader.onload = loader.onerror = function() {
       var scroller = self.scroller = createTestScroller(self.options.testChar)
-      var scrollWidth = scroller.scrollWidth
+        , scrollWidth = scroller.scrollWidth
       scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
       setTimeout(function() {
         scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
