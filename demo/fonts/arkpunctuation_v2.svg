@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata></metadata>
+<defs>
+<font id="arkpunctuationregular" horiz-adv-x="256" >
+<font-face units-per-em="512" ascent="409" descent="-103" />
+<missing-glyph horiz-adv-x="500" />
+<glyph unicode="&#xd;" horiz-adv-x="170" />
+<glyph unicode="&#x2014;" horiz-adv-x="512" d="M0 195h116h140h140h116v-5.5v-6.5v-6v-5h-116h-140h-140h-116v5v6v6.5v5.5z" />
+<glyph unicode="&#x2018;" d="M130 256v13.5v15.5v16.5v15.5q0 18 1.5 30t6 20.5t12 15.5t19.5 14q2 -1 4 -3.5t4 -5.5t4.5 -5.5t4.5 -5.5q-10 -4 -15.5 -8.5t-9 -11t-4.5 -16t-1 -24.5h8h10h10h8v-13.5v-17v-16.5v-14h-14h-17h-17h-14z" />
+<glyph unicode="&#x2019;" d="M126 384v-13.5v-15.5v-16.5v-15.5q0 -18 -1.5 -29.5t-6 -20.5t-12 -16t-19.5 -14q-2 2 -4 4.5l-4 5t-4.5 5.5t-4.5 5q10 5 15.5 9t9 10.5t4.5 16t1 24.5h-8h-10h-10h-8v13.5v17v16.5v14h14h17h17h14z" />
+<glyph unicode="&#x201c;" d="M64 252v13.5v15.5v16.5v16.5q0 17 1.5 29t6 20.5t12 15.5t19.5 15q2 -2 4 -4.5t4 -5.5t4.5 -5.5t4.5 -5.5q-10 -4 -15.5 -8.5t-9 -11t-4.5 -16t-1 -23.5h8h10h10h8v-14v-17v-17v-14h-14h-17h-17h-14zM162 252v13.5v15.5v16.5v16.5q0 17 1.5 29t6 20.5t12 15.5t19.5 15 q2 -2 4 -4.5t4 -5.5t4.5 -5.5t4.5 -5.5q-10 -4 -15.5 -8.5t-9 -11t-4.5 -16t-1 -23.5h8h10h10h8v-14v-17v-17v-14h-14h-17h-17h-14z" />
+<glyph unicode="&#x201d;" d="M192 384v-13.5v-15.5v-16.5v-15.5q0 -18 -1.5 -29.5t-6 -20.5t-12 -16t-19.5 -14q-2 2 -4 4.5l-4 5t-4.5 5.5t-4.5 5q10 5 15.5 9t9 10.5t4.5 16t1 24.5h-8h-10h-10h-8v13.5v17v16.5v14h14h17h17h14zM94 384v-13.5v-15.5v-16.5v-15.5q0 -18 -1.5 -29.5t-6 -20.5t-12 -16 t-19.5 -14q-2 2 -4 4.5l-4 5t-4.5 5.5t-4.5 5q10 5 15.5 9t9 10.5t4.5 16t1 24.5h-8h-10h-10h-8v13.5v17v16.5v14h14h17h17h14z" />
+<glyph unicode="&#x25fc;" horiz-adv-x="500" d="M0 0v0v0v0v0z" />
+<glyph unicode="&#xfffd;" horiz-adv-x="0" />
+</font>
+</defs></svg> 
