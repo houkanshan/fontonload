@@ -48,15 +48,15 @@
       if (!timer) { return } // already ran
       clearTimeout(timer)
       timer = null
-      success && success()
-      self.scroller && document.body.removeChild(self.scroller)
+      success && success() /*jshint -W030 */
+      self.scroller && document.body.removeChild(self.scroller) /*jshint -W030 */
     }
     args[2] = function() {
       if (!timer) { return } // already ran
       clearTimeout(timer)
       timer = null
-      fail && fail()
-      self.scroller && document.body.removeChild(self.scroller)
+      fail && fail() /*jshint -W030 */
+      self.scroller && document.body.removeChild(self.scroller) /*jshint -W030 */
     }
 
     timer = setTimeout(args[2], this.options.timeout)
@@ -92,7 +92,7 @@
       self.scroller = createTestScroller(self.options.testChar)
       var scrollWidth = self.scroller.scrollWidth
       self.scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
-      self.scroller.scrollWidth !== scrollWidth ? success() : fail()
+      self.scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
     }
     loader.src = this.options.eotFile
   }

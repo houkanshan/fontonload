@@ -4,7 +4,7 @@
   "description": "Cross browser detecting font loads, without using timer (setTimeout / setInterval).",
   "main": "fontonload.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/gulp"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/houkanshan/fontonload/issues"
+  },
+  "devDependencies": {
+    "gulp-jshint": "~1.9.0",
+    "gulp": "~3.8.10"
   }
 }
