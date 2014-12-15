@@ -89,10 +89,12 @@
     var loader = new Image()
       , self = this
     loader.onabort = loader.onload = loader.onerror = function() {
-      self.scroller = createTestScroller(self.options.testChar)
-      var scrollWidth = self.scroller.scrollWidth
-      self.scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
-      self.scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
+      var scroller = self.scroller = createTestScroller(self.options.testChar)
+      var scrollWidth = scroller.scrollWidth
+      scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
+      setTimeout(function() {
+        scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
+      }, 1)
     }
     loader.src = this.options.eotFile
   }
