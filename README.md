@@ -2,7 +2,7 @@
 
 [![Build Status](https://magnum.travis-ci.com/houkanshan/fontonload.svg?token=jqtussTxt3duXbPxyhA7&branch=master)](https://magnum.travis-ci.com/houkanshan/fontonload)
 
-Cross browser detecting web font loading, without using timer (setTimeout / setInterval).
+Cross browser detecting web font loading, without checking by timer (setTimeout / setInterval).
 
 
 [中文 TODO]

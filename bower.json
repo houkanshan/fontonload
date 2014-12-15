@@ -6,7 +6,7 @@
   "authors": [
     "houmai <houkanshan@gmail.com>"
   ],
-  "description": "Croww browser detecting font loads, without using timer (setTimeout / setInterval).",
+  "description": "Cross browser detecting font loads, without checking by timer (setTimeout / setInterval).",
   "keywords": [
     "font",
     "fontface"

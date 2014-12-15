@@ -1,7 +1,7 @@
 {
   "name": "fontonload",
   "version": "0.0.1",
-  "description": "Cross browser detecting font loads, without using timer (setTimeout / setInterval).",
+  "description": "Cross browser detecting font loads, without checking by timer (setTimeout / setInterval).",
   "main": "fontonload.js",
   "scripts": {
     "test": "./node_modules/.bin/gulp test"
