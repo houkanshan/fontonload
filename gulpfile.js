@@ -1,5 +1,7 @@
 var gulp = require('gulp')
-var jshint = require('gulp-jshint')
+  , jshint = require('gulp-jshint')
+  , uglify = require('gulp-uglify')
+  , rename = require('gulp-rename')
 
 gulp.task('jshint', function(){
   gulp.src(['**/*.js', '!node_modules/**'])
@@ -7,4 +9,12 @@ gulp.task('jshint', function(){
     .pipe(jshint.reporter())
 })
 
-gulp.task('default', ['jshint'])
+gulp.task('compress', function(){
+  gulp.src(['./fontonload.js'])
+    .pipe(uglify())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('./'))
+})
+
+gulp.task('test', ['jshint'])
+gulp.task('default', ['jshint', 'compress'])
