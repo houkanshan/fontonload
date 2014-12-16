@@ -28,6 +28,8 @@
     return scroller
   }
 
+  function defer(f) { setTimeout(f, 1) }
+
   function FontOnload(options) {
     var opts = {}
     opts.timeout = options.timeout || defaults.timeout
@@ -85,18 +87,56 @@
     }
   }
 
+  var iframeHtml = (function () {/*
+<head>
+<style>
+  @font-face {
+    font-family: '{font}';
+    src: url("{path}");
+    src: url("{path}#iefix") format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  body { font: 12px/1 {font},arial; }
+</style>
+</head>
+<body>{testChar}
+</body>
+  */}).toString().match(/\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)\s*\*\//)[1]
+
   proto.loadingDetectByPreload = function(fontname, success, fail) {
-    var loader = new Image()
-      , self = this
-    loader.onabort = loader.onload = loader.onerror = function() {
+    var iframe = document.createElement('iframe')
+      , html = iframeHtml.replace(/{font}/g, fontname)
+          .replace(/{path}/g, this.options.eotFile)
+          .replace('{testChar}', this.options.testChar)
+
+    var self = this
+
+    function onload () {
+      document.body.removeChild(iframe)
       var scroller = self.scroller = createTestScroller(self.options.testChar)
         , scrollWidth = scroller.scrollWidth
       scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
-      setTimeout(function() {
+      defer(function() {
         scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
-      }, 1)
+      })
     }
-    loader.src = this.options.eotFile
+
+    if (iframe.attachEvent) {
+      iframe.attachEvent('onload', onload)
+    } else {
+      iframe.onload = onload
+    }
+    iframe.style.cssText = testStyle
+
+    defer(function() {
+      document.body.appendChild(iframe)
+      iframe.contentWindow.document.open()
+      iframe.contentWindow.document.write(html)
+      defer(function() {
+        iframe.contentWindow.document.close()
+      })
+    })
   }
 
   win.FontOnload = function(fontname, options) {
