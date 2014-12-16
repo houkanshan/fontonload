@@ -5,9 +5,10 @@ var gulp = require('gulp')
   , ghpages = require('gulp-gh-pages')
 
 gulp.task('jshint', function(){
-  gulp.src(['**/*.js', '!node_modules/**'])
+  gulp.src(['**/*.js', '!node_modules/**', '!**/*.min.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter())
+    .pipe(jshint.reporter('fail'))
 })
 
 gulp.task('compress', function(){
