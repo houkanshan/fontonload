@@ -52,7 +52,12 @@
   <span id="c">abc——“”&#xfffd; <sub>test font loading: DroidSerif</sub>
   </span>
   <br>
-  <span id="d">abc——“”&#xfffd; <sub>test if really failed</sub>
+  <span id="d">abc——“”&#xfffd;
+    <sub>
+      this will always switch to web font (wait 2s),
+      if it's font doesn't change,
+      it means that the browser failed to load the web font.
+    </sub>
   </span>
   <br>
   <pre id="log"></pre>
