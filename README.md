@@ -5,7 +5,7 @@
 Cross browser detecting web font loading, without checking by timer (setTimeout / setInterval).
 
 
-[中文 TODO]
+[中文](http://houkanshan.github.io/posts/2014/12/17/fontonload/)
 
 ## Usage
 
