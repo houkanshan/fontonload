@@ -21,10 +21,10 @@
     , testFontFamily = '{f},arial'
 
   function createTestScroller(testChar) {
-    var scroller = document.createElement('div');
+    var scroller = doc.createElement('div');
     scroller.style.cssText = testStyle
-    document.body.appendChild(scroller)
-    scroller.appendChild(document.createTextNode(testChar))
+    doc.body.appendChild(scroller)
+    scroller.appendChild(doc.createTextNode(testChar))
     return scroller
   }
 
@@ -51,14 +51,14 @@
       clearTimeout(timer)
       timer = null
       success && success() /*jshint -W030 */
-      self.scroller && document.body.removeChild(self.scroller) /*jshint -W030 */
+      self.scroller && doc.body.removeChild(self.scroller) /*jshint -W030 */
     }
     args[2] = function() {
       if (!timer) { return } // already ran
       clearTimeout(timer)
       timer = null
       fail && fail() /*jshint -W030 */
-      self.scroller && document.body.removeChild(self.scroller) /*jshint -W030 */
+      self.scroller && doc.body.removeChild(self.scroller) /*jshint -W030 */
     }
 
     timer = setTimeout(args[2], this.options.timeout)
@@ -73,7 +73,7 @@
   }
 
   proto.loadingDetectByBrowser = function(fontname, success, fail) {
-    document.fonts.load('1em ' + fontname).then(success, fail)
+    doc.fonts.load('1em ' + fontname).then(success, fail)
   }
 
   proto.loadingDetectByScroll = function(fontname, success, fail) {
@@ -105,7 +105,7 @@
   */}).toString().match(/\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)\s*\*\//)[1]
 
   proto.loadingDetectByPreload = function(fontname, success, fail) {
-    var iframe = document.createElement('iframe')
+    var iframe = doc.createElement('iframe')
       , html = iframeHtml.replace(/{font}/g, fontname)
           .replace(/{path}/g, this.options.eotFile)
           .replace('{testChar}', this.options.testChar)
@@ -113,7 +113,7 @@
     var self = this
 
     function onload () {
-      document.body.removeChild(iframe)
+      doc.body.removeChild(iframe)
       var scroller = self.scroller = createTestScroller(self.options.testChar)
         , scrollWidth = scroller.scrollWidth
       scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
@@ -130,7 +130,7 @@
     iframe.style.cssText = testStyle
 
     defer(function() {
-      document.body.appendChild(iframe)
+      doc.body.appendChild(iframe)
       iframe.contentWindow.document.open()
       iframe.contentWindow.document.write(html)
       defer(function() {
