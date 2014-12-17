@@ -1,6 +1,6 @@
 ;(function(win) {
   var defaults = {
-        timeout: 10000
+        timeout: 3000
       , eotFile: ''
       , testChar: '\ufffd'
       }
@@ -107,16 +107,15 @@
       , html = iframeHtml.replace(/{font}/g, fontname)
           .replace(/{path}/g, this.options.eotFile)
           .replace('{testChar}', this.options.testChar)
+    iframe.style.cssText = testStyle
 
     var self = this
-
     function onload () {
       doc.body.removeChild(iframe)
       var scroller = self.scroller = createTestScroller(self.options.testChar)
         , scrollWidth = scroller.scrollWidth
       scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
       defer(function() {
-        ;(new Image()).src = fontname + ',' + scrollWidth + ',' + scroller.scrollWidth
         scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
       })
     }
@@ -126,7 +125,6 @@
     } else {
       iframe.onload = onload
     }
-    iframe.style.cssText = testStyle
 
     doc.body.appendChild(iframe)
     iframe.contentWindow.document.open()
