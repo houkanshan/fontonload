@@ -10,6 +10,7 @@
     , unsupport = unsupportRe.test(ua)
     , supportAutoScroll = !/msie [6-9]/i.test(ua)
     , supportFontsLoading = ('fonts' in doc)
+    , ie9 = /msie 9/i.test(ua)
     , errorMeasure = { name: 'MeasureFailed' }
     , errorTimeout = { name: 'Timeout' }
     , errorUnsupport = { name: 'Unsupport' }
@@ -92,20 +93,22 @@
     }
   }
 
-  var iframeHtml = (function () {/*
-<head><script></script>
-<style>
-  @font-face {
-    font-family: '{font}';
-    src: url("{path}");
-    src: url("{path}#iefix") format('embedded-opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  body { font: 12px/1 {font},arial; }
-</style>
-</head><body>{testChar}</body>
-  */}).toString().match(/\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)\s*\*\//)[1]
+  var iframeHtml =  ''
++ '<head><script></script>'
++ '<style>'
++   '@font-face {'
++     'font-family: {font};'
++     'src: url("{path}?#iefix") format("embedded-opentype");'
++     'font-weight: normal;'
++     'font-style: normal;'
++   '}'
++   'body { font: 12px/1 {font},arial; }'
++ '</style>'
++ '</head>'
++ '<body>'
++ '{testChar}'
++ (ie9 ? '<img src="{path}?#iefix"/>' : '<img src="{path}"/>')
++ '</body>'
 
   proto.loadingDetectByPreload = function(fontname, success, fail) {
     var iframe = doc.createElement('iframe')
