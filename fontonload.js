@@ -10,6 +10,9 @@
     , unsupport = unsupportRe.test(ua)
     , supportAutoScroll = !/msie [6-9]/i.test(ua)
     , supportFontsLoading = ('fonts' in doc)
+    , errorMeasure = { name: 'MeasureFailed' }
+    , errorTimeout = { name: 'Timeout' }
+    , errorUnsupport = { name: 'Unsupport' }
 
   var testStyle = [
         'position:absolute'
@@ -40,7 +43,7 @@
 
   var proto = FontOnload.prototype
   proto.load = function(fontname, success, fail) {
-    if (unsupport) { return fail && fail() }
+    if (unsupport) { return fail && fail(errorUnsupport) }
 
     var args = [].slice.apply(arguments)
       , self = this
@@ -53,15 +56,17 @@
       success && success() /*jshint -W030 */
       self.scroller && doc.body.removeChild(self.scroller) /*jshint -W030 */
     }
-    args[2] = function() {
+    args[2] = function(e) {
       if (!timer) { return } // already ran
       clearTimeout(timer)
       timer = null
-      fail && fail() /*jshint -W030 */
+      fail && fail(e) /*jshint -W030 */
       self.scroller && doc.body.removeChild(self.scroller) /*jshint -W030 */
     }
 
-    timer = setTimeout(args[2], this.options.timeout)
+    timer = setTimeout(function() {
+      args[2](errorTimeout)
+    }, this.options.timeout)
 
     if (supportFontsLoading) {
       this.loadingDetectByBrowser.apply(this, args)
@@ -116,7 +121,7 @@
         , scrollWidth = scroller.scrollWidth
       scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
       defer(function() {
-        scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
+        scroller.scrollWidth !== scrollWidth ? success() : fail(errorMeasure) /*jshint -W030 */
       })
     }
 

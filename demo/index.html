@@ -85,10 +85,10 @@
         log.innerHTML += ', succeed.'
         log.innerHTML += '\n'
       }
-    , fail: function() {
+    , fail: function(e) {
         log.innerHTML += 'arkpunctuation: '
         log.innerHTML += 'loading time:' + (+new Date() - startTime)
-        log.innerHTML += ', <b>fail</b>\n'
+        log.innerHTML += ', <b>failed: ' + e.name + '</b>\n'
       }
     })
 
@@ -103,10 +103,10 @@
         log.innerHTML += ', succeed.'
         log.innerHTML += '\n'
       }
-    , fail: function() {
+    , fail: function(e) {
         log.innerHTML += 'DroidSeif: '
         log.innerHTML += 'loading time:' + (+new Date() - startTime)
-        log.innerHTML += ', <b>fail</b>\n'
+        log.innerHTML += ', <b>failed: ' + e.name + '</b>\n'
       }
     })
 
