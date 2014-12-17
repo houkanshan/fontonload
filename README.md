@@ -47,6 +47,12 @@ The preload works is make by iframe, and detect the loading by it's `onload` eve
 4. It exclude the browser which don't support web font
 (BlackBerry 5/6, Opera Mini, Windows Phone 7/7.5)
 
+Briefly, it works thanks to these 3 browser behaviors:
+
+1. Modern browsers' `document.fonts.load`
+2. Other browsers' `scroll` event when element size decrease
+3. IE 6 – 9 block `window.onload` event until @font-face loaded & `iframe.onload` being detectable
+
 
 ## License
 
