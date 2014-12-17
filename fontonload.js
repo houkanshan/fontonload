@@ -1,6 +1,6 @@
 ;(function(win) {
   var defaults = {
-        timeout: 2000
+        timeout: 10000
       , eotFile: ''
       , testChar: '\ufffd'
       }
@@ -88,7 +88,7 @@
   }
 
   var iframeHtml = (function () {/*
-<head>
+<head><script></script>
 <style>
   @font-face {
     font-family: '{font}';
@@ -99,9 +99,7 @@
   }
   body { font: 12px/1 {font},arial; }
 </style>
-</head>
-<body>{testChar}
-</body>
+</head><body>{testChar}</body>
   */}).toString().match(/\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)\s*\*\//)[1]
 
   proto.loadingDetectByPreload = function(fontname, success, fail) {
@@ -118,6 +116,7 @@
         , scrollWidth = scroller.scrollWidth
       scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
       defer(function() {
+        ;(new Image()).src = fontname + ',' + scrollWidth + ',' + scroller.scrollWidth
         scroller.scrollWidth !== scrollWidth ? success() : fail() /*jshint -W030 */
       })
     }
@@ -129,13 +128,11 @@
     }
     iframe.style.cssText = testStyle
 
+    doc.body.appendChild(iframe)
+    iframe.contentWindow.document.open()
+    iframe.contentWindow.document.write(html)
     defer(function() {
-      doc.body.appendChild(iframe)
-      iframe.contentWindow.document.open()
-      iframe.contentWindow.document.write(html)
-      defer(function() {
-        iframe.contentWindow.document.close()
-      })
+      iframe.contentWindow.document.close()
     })
   }
 
