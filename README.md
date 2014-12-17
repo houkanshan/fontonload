@@ -38,7 +38,7 @@ When your patched font load,
 the height and width of the detection element will become 0,
 that will trigger a `scroll` event.
 It's similar to *smhn*'s [article](http://smnh.me/web-font-loading-detection-without-timers/),
-but simple (no embedded font) in detection.
+but more simple (no embedded font) in detection.
 3. For IE 6 – 9, these browsers won't trigger a `scroll` event after height/width decreased.
 But fortunately I found that they don't have FOUT if the font file is in cache,
 so the code just preload the eot font to make sure the font file is in cache.
