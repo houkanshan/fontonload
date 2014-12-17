@@ -86,7 +86,9 @@
         log.innerHTML += '\n'
       }
     , fail: function() {
-        log.innerHTML += 'fail\n'
+        log.innerHTML += 'arkpunctuation: '
+        log.innerHTML += 'loading time:' + (+new Date() - startTime)
+        log.innerHTML += ', fail\n'
       }
     })
 
@@ -102,7 +104,9 @@
         log.innerHTML += '\n'
       }
     , fail: function() {
-        log.innerHTML += 'fail\n'
+        log.innerHTML += 'DroidSeif: '
+        log.innerHTML += 'loading time:' + (+new Date() - startTime)
+        log.innerHTML += ', fail\n'
       }
     })
 
