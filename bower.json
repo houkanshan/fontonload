@@ -1,7 +1,7 @@
 {
   "name": "fontonload",
   "main": "fontonload.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/houkanshan/fontonload",
   "authors": [
     "houmai <houkanshan@gmail.com>"

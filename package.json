@@ -1,6 +1,6 @@
 {
   "name": "fontonload",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cross browser detecting font loads, without checking by timer (setTimeout / setInterval).",
   "main": "fontonload.js",
   "scripts": {
