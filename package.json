@@ -12,7 +12,8 @@
   },
   "keywords": [
     "font",
-    "fontface"
+    "fontface",
+    "loader"
   ],
   "author": "houkanshan <houkanshan@gmail.com>",
   "license": "MIT",
