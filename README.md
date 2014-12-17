@@ -17,10 +17,11 @@ Cross browser detecting web font loading, without checking by timer (setTimeout 
 
 ```javascript
 FontOnload('fontname', {
-  eotFile: './fonts/fontname.eot'
-, success: function() {
-  }
-, fail: function() {
+  eotFile: './fonts/fontname.eot',
+  success: function() {
+  },
+  fail: function(e) {
+    console.log(e.name)
   }
 })
 ```
