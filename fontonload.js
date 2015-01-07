@@ -11,9 +11,9 @@
     , supportAutoScroll = !/msie [6-9]/i.test(ua)
     , supportFontsLoading = ('fonts' in doc)
     , ie9 = /msie 9/i.test(ua)
-    , errorMeasure = { name: 'MeasureFailed' }
-    , errorTimeout = { name: 'Timeout' }
-    , errorUnsupport = { name: 'Unsupport' }
+    , errorMeasure = 'MeasureFailed'
+    , errorTimeout = 'Timeout'
+    , errorUnsupport = 'Unsupport'
 
   var testStyle = [
         'position:absolute'
@@ -44,7 +44,7 @@
 
   var proto = FontOnload.prototype
   proto.load = function(fontname, success, fail) {
-    if (unsupport) { return fail && fail(errorUnsupport) }
+    if (unsupport) { return fail && fail(new Error(errorUnsupport)) }
 
     var args = [].slice.apply(arguments)
       , self = this
@@ -66,7 +66,7 @@
     }
 
     timer = setTimeout(function() {
-      args[2](errorTimeout)
+      args[2](new Error(errorTimeout))
     }, this.options.timeout)
 
     if (supportFontsLoading) {
@@ -124,7 +124,8 @@
         , scrollWidth = scroller.scrollWidth
       scroller.style.fontFamily = testFontFamily.replace('{f}', fontname)
       defer(function() {
-        scroller.scrollWidth !== scrollWidth ? success() : fail(errorMeasure) /*jshint -W030 */
+        scroller.scrollWidth !== scrollWidth
+          ? success() : fail(new Error(errorMeasure)) /*jshint -W030 */
       })
     }
 
