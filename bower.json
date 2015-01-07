@@ -1,7 +1,7 @@
 {
   "name": "fontonload",
   "main": "fontonload.js",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "homepage": "https://github.com/houkanshan/fontonload",
   "authors": [
     "houmai <houkanshan@gmail.com>"
@@ -9,10 +9,10 @@
   "description": "Cross browser detecting font loads, without checking by timer (setTimeout / setInterval).",
   "keywords": [
     "font",
-    "fontface"
+    "fontface",
+    "loader"
   ],
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",

@@ -17,10 +17,11 @@ Cross browser detecting web font loading, without checking by timer (setTimeout 
 
 ```javascript
 FontOnload('fontname', {
-  eotFile: './fonts/fontname.eot'
-, success: function() {
-  }
-, fail: function() {
+  eotFile: './fonts/fontname.eot',
+  success: function() {
+  },
+  fail: function(e) {
+    console.log(e.name)
   }
 })
 ```
@@ -37,7 +38,7 @@ When your patched font load,
 the height and width of the detection element will become 0,
 that will trigger a `scroll` event.
 It's similar to *smhn*'s [article](http://smnh.me/web-font-loading-detection-without-timers/),
-but simple (no embedded font) in detection.
+but more simple (no embedded font) in detection.
 3. For IE 6 – 9, these browsers won't trigger a `scroll` event after height/width decreased.
 But fortunately I found that they don't have FOUT if the font file is in cache,
 so the code just preload the eot font to make sure the font file is in cache.
@@ -45,6 +46,12 @@ The preload works is make by iframe, and detect the loading by it's `onload` eve
 (@font-face will block `onload` event)
 4. It exclude the browser which don't support web font
 (BlackBerry 5/6, Opera Mini, Windows Phone 7/7.5)
+
+Briefly, it works thanks to these 3 browser behaviors:
+
+1. Modern browsers' `document.fonts.load`
+2. Other browsers' `scroll` event when element size decrease
+3. IE 6 – 9 block `window.onload` event until @font-face loaded & `iframe.onload` being detectable
 
 
 ## License
