@@ -33,7 +33,7 @@ to see if it works.
 
 1. It uses the [CSS Font Loading Module](http://dev.w3.org/csswg/css-font-loading/) when available.
 2. For browsers which can auto trigger `scroll` event. It uses a scroller element,
-which contains an `U+FFFD` charactor, to detect the font loading.
+which contains an `U+FFFD` character, to detect the font loading.
 When your patched font load,
 the height and width of the detection element will become 0,
 that will trigger a `scroll` event.
